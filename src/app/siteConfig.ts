@@ -3,8 +3,6 @@ export const siteConfig = {
   baseLinks: {
     home: "/",
     overview: "/overview",
-    details: "/details",
-    settings: "/settings",
   },
 }
 

@@ -38,7 +38,7 @@ export function ProgressBarCard({
             <span className="text-xl text-gray-900 dark:text-gray-50">
               {value}
             </span>
-            <span className="text-sm text-gray-500">{valueDescription}</span>
+            <span className="text-sm text-gray-500 bg-white">{valueDescription}</span>
           </dd>
           <ul role="list" className="mt-4 space-y-5">
             {data.map((item) => (

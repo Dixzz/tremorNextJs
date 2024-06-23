@@ -1,50 +1,13 @@
-"use client"
+import { Button } from "@tremor/react"
+import { Button as RButton } from "@radix-ui/themes"
 import { CategoryBarCard } from "@/components/ui/overview/DashboardCategoryBarCard"
-import { ChartCard } from "@/components/ui/overview/DashboardChartCard"
-import { Filterbar } from "@/components/ui/overview/DashboardFilterbar"
 import { ProgressBarCard } from "@/components/ui/overview/DashboardProgressBarCard"
-import { overviews } from "@/data/overview-data"
 import { OverviewData } from "@/data/schema"
-import { cx } from "@/lib/utils"
-import { subDays, toDate } from "date-fns"
 import React from "react"
-import { DateRange } from "react-day-picker"
-import { MultiSelect, MultiSelectItem } from '@tremor/react';
-import { RiCalculatorLine } from '@remixicon/react';
-import { Select, SelectItem } from '@tremor/react';
-
+import DashboardFooter from "@/components/ui/overview/DashboardFooter"
 
 export type PeriodValue = "previous-period" | "last-year" | "no-comparison"
 
-const categories: {
-  title: keyof OverviewData
-  type: "currency" | "unit"
-}[] = [
-  {
-    title: "Rows read",
-    type: "unit",
-  },
-  {
-    title: "Rows written",
-    type: "unit",
-  },
-  {
-    title: "Queries",
-    type: "unit",
-  },
-  {
-    title: "Payments completed",
-    type: "currency",
-  },
-  {
-    title: "Sign ups",
-    type: "unit",
-  },
-  {
-    title: "Logins",
-    type: "unit",
-  },
-]
 
 export type KpiEntry = {
   title: string
@@ -130,47 +93,13 @@ const data3: KpiEntryExtended[] = [
   },
 ]
 
-function SelectUsageExample() {
-  const [value, setValue] = React.useState('');
-  return (
-    <div className="mx-auto max-w-xs">
-      <label htmlFor="distance" className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Select
-        distance</label>
-      <Select id="distance" name="distance" value={value} onValueChange={setValue} className="mt-2">
-        <SelectItem value="1" icon={RiCalculatorLine}>
-          Kilometers
-        </SelectItem>
-        <SelectItem value="2" icon={RiCalculatorLine}>
-          Meters
-        </SelectItem>
-        <SelectItem value="3" icon={RiCalculatorLine}>
-          Miles
-        </SelectItem>
-        <SelectItem value="4" icon={RiCalculatorLine}>
-          Nautical Miles
-        </SelectItem>
-      </Select>
-    </div>
-  );
-}
-
-const overviewsDates = overviews.map((item) => toDate(item.date).getTime())
-const maxDate = toDate(Math.max(...overviewsDates))
-
 export default function Overview() {
-  const [selectedDates, setSelectedDates] = React.useState<
-    DateRange | undefined
-  >({
-    from: subDays(maxDate, 30),
-    to: maxDate,
-  })
 
   return (
     <>
-      <section>
-        <SelectUsageExample/>
-      </section>
       <section aria-labelledby="current-billing-cycle">
+        <Button>aas</Button>
+        <RButton>RButton</RButton>
         <h1
           id="current-billing-cycle"
           className="scroll-mt-10 text-lg font-semibold text-gray-900 sm:text-xl dark:text-gray-50"
@@ -211,39 +140,7 @@ export default function Overview() {
           />
         </div>
       </section>
-      <section aria-labelledby="usage-overview">
-        <h1
-          id="usage-overview"
-          className="mt-16 scroll-mt-8 text-lg font-semibold text-gray-900 sm:text-xl dark:text-gray-50"
-        >
-          Overview
-        </h1>
-        <div className="sticky top-16 z-20 flex items-center justify-between border-b border-gray-200 bg-white pb-4 pt-4 sm:pt-6 lg:top-0 lg:mx-0 lg:px-0 lg:pt-8 dark:border-gray-800 dark:bg-gray-950">
-          <Filterbar
-            maxDate={maxDate}
-            minDate={new Date(2024, 0, 1)}
-            selectedDates={selectedDates}
-            onDatesChange={(dates) => setSelectedDates(dates)}
-          />
-        </div>
-        <dl
-          className={cx(
-            "mt-10 grid grid-cols-1 gap-14 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
-          )}
-        >
-          {categories.map((category) => {
-            return (
-              <ChartCard
-                key={category.title}
-                title={category.title}
-                type={category.type}
-                selectedDates={selectedDates}
-                selectedPeriod={"last-year"}
-              />
-            )
-          })}
-        </dl>
-      </section>
+      <DashboardFooter/>
     </>
   )
 }
