@@ -1,10 +1,10 @@
-import { Button } from "@tremor/react"
+import { Button, Grid } from "@tremor/react"
 import { Button as RButton } from "@radix-ui/themes"
 import { CategoryBarCard } from "@/components/ui/overview/DashboardCategoryBarCard"
 import { ProgressBarCard } from "@/components/ui/overview/DashboardProgressBarCard"
-import { OverviewData } from "@/data/schema"
-import React from "react"
+import React, { Suspense } from "react"
 import DashboardFooter from "@/components/ui/overview/DashboardFooter"
+import LatestNews from "@/app/(main)/overview/async/loadNews"
 
 export type PeriodValue = "previous-period" | "last-year" | "no-comparison"
 
@@ -97,6 +97,9 @@ export default function Overview() {
 
   return (
     <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LatestNews/>
+      </Suspense>
       <section aria-labelledby="current-billing-cycle">
         <Button>aas</Button>
         <RButton>RButton</RButton>
